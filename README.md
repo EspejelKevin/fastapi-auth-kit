@@ -1,4 +1,4 @@
-# FastAPI Auth Kit
+# FastAPI Auth Layer
 
 Authentication & Authorization as a FastAPI dependency layer. 
 Stop rewriting JWT validation, user dependencies, and security exceptions in every project.
@@ -12,9 +12,9 @@ Stop rewriting JWT validation, user dependencies, and security exceptions in eve
 ## 📦 Installation
 
 ```bash
-pip install fastapi-auth-kit
+pip install fastapi-auth-layer
 # or using uv
-uv add fastapi-auth-kit
+uv add fastapi-auth-layer
 ```
 
 ## 🛠️ Quickstart
@@ -22,7 +22,7 @@ uv add fastapi-auth-kit
 1. Define your UserProvider:
 
 ```python
-from fastapi_auth_kit.protocols import AuthUser, UserProvider
+from fastapi_auth_layer.protocols import AuthUser, UserProvider
 
 class MyUserProvider(UserProvider):
     async def get_by_id(self, user_id: str) -> AuthUser | None:
@@ -34,7 +34,7 @@ class MyUserProvider(UserProvider):
 
 ```python
 from fastapi import FastAPI, Depends
-from fastapi_auth_kit import Auth, AuthConfig
+from fastapi_auth_layer import Auth, AuthConfig
 
 auth = Auth(
     config=AuthConfig(secret_key="your-super-secret-key"),
