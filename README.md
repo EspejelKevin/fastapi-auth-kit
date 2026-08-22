@@ -49,7 +49,7 @@ async def get_profile(user = Depends(auth.current_user)):
 ```
 
 ## License Agreement
-`fastapi-auth-kit` is open source and free to use. Can be used for commercial purposes for free, but please clearly display the copyright information about **FastAPI-Auth-Kit** in the display interface.
+`fastapi-auth-layer` is open source and free to use. Can be used for commercial purposes for free, but please clearly display the copyright information about **FastAPI-Auth-Layer** in the display interface.
 
 ## Copyright
 Copyright (c) 2026 Kevin Manuel Espejel Martinez. All rights reserved.
