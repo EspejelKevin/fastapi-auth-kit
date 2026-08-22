@@ -3,9 +3,9 @@ from dataclasses import dataclass
 from fastapi import FastAPI, Depends
 from fastapi.testclient import TestClient
 
-from fastapi_auth_kit.config import AuthConfig
-from fastapi_auth_kit.core import Auth
-from fastapi_auth_kit.protocols import AuthUser
+from fastapi_auth_layer.config import AuthConfig
+from fastapi_auth_layer.core import Auth
+from fastapi_auth_layer.protocols import AuthUser
 
 
 @dataclass

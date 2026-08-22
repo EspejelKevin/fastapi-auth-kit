@@ -2,9 +2,9 @@ import pytest
 import jwt
 from datetime import datetime, timedelta, timezone
 
-from fastapi_auth_kit.config import AuthConfig
-from fastapi_auth_kit.jwt_handler import JWTHandler
-from fastapi_auth_kit.exceptions import InvalidTokenException, TokenExpiredException
+from fastapi_auth_layer.config import AuthConfig
+from fastapi_auth_layer.jwt_handler import JWTHandler
+from fastapi_auth_layer.exceptions import InvalidTokenException, TokenExpiredException
 
 
 @pytest.fixture

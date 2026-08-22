@@ -1,5 +1,5 @@
 [project]
-name = "fastapi-auth-kit"
+name = "fastapi-auth-layer"
 version = "0.1.0"
 description = "Authentication & Authorization as a FastAPI dependency layer."
 readme = "README.md"
