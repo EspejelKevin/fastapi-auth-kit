@@ -1,7 +1,18 @@
 [project]
 name = "fastapi-auth-kit"
 version = "0.1.0"
+description = "Authentication & Authorization as a FastAPI dependency layer."
+readme = "README.md"
 requires-python = ">=3.14"
+authors = [
+    { name = "Kevin Espejel", email = "kevin.espejelmtz@gmail.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Framework :: FastAPI",
+]
 dependencies = [
     "fastapi>=0.141.1",
     "pydantic-settings>=2.15.0",
@@ -15,3 +26,7 @@ dev = [
     "httpx>=0.28.1",
     "pytest>=9.1.1",
 ]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
