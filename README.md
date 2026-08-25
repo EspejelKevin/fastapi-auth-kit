@@ -48,6 +48,31 @@ async def get_profile(user = Depends(auth.current_user)):
     return {"id": user.id, "active": user.is_active}
 ```
 
+## 🛡️ Role and Permission Based Access Control (RBAC/PBAC)
+
+`fastapi-auth-layer` makes authorization declarative. You can restrict endpoints using `require_roles` or `require_permissions`.
+
+```python
+# 1. Require a specific role
+@app.delete("/users/{id}")
+async def delete_user(user = Depends(auth.require_roles(["admin"]))):
+    return {"message": "User deleted"}
+
+# 2. Require ALL permissions (Default)
+@app.post("/reports")
+async def create_report(
+    user = Depends(auth.require_permissions(["write", "read"]))
+):
+    return {"message": "Report generated"}
+
+# 3. Require ANY role (Logical OR)
+@app.get("/dashboard")
+async def view_dashboard(
+    user = Depends(auth.require_roles(["admin", "manager"], mode="ANY"))
+):
+    return {"message": "Welcome to the dashboard"}
+```
+
 ## License Agreement
 `fastapi-auth-layer` is open source and free to use. Can be used for commercial purposes for free, but please clearly display the copyright information about **FastAPI-Auth-Layer** in the display interface.
 

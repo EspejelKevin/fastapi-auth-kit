@@ -1,4 +1,4 @@
-from typing import Callable, Coroutine, Any
+from typing import Callable, Coroutine, Any, Sequence, Literal
 
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends
@@ -7,7 +7,8 @@ from .protocols import AuthUser, UserProvider
 from .config import AuthConfig
 from .jwt_handler import JWTHandler
 from .exceptions import (AuthException, InvalidTokenException,
-                         UserNotFoundException, UserInactiveException)
+                         UserNotFoundException, UserInactiveException,
+                         InsufficientPermissionsException)
 
 
 class Auth:
@@ -40,3 +41,39 @@ class Auth:
             return user
 
         self.current_user = _current_user_dependency
+
+    def require_roles(self, roles: Sequence[str], mode: Literal['ALL', 'ANY'] = 'ALL') -> Callable[..., Coroutine[Any, Any, AuthUser]]:
+        async def _role_dependency(user: AuthUser = Depends(self.current_user)) -> AuthUser:
+            user_roles = getattr(user, 'roles', [])
+
+            if mode == 'ALL':
+                has_roles = all(role in user_roles for role in roles)
+            elif mode == 'ANY':
+                has_roles = any(role in user_roles for role in roles)
+            else:
+                has_roles = False
+
+            if not has_roles:
+                raise InsufficientPermissionsException()
+
+            return user
+
+        return _role_dependency
+
+    def require_permissions(self, permissions: Sequence[str], mode: Literal['ALL', 'ANY'] = 'ALL') -> Callable[..., Coroutine[Any, Any, AuthUser]]:
+        async def _permission_dependency(user: AuthUser = Depends(self.current_user)) -> AuthUser:
+            user_permissions = getattr(user, 'permissions', [])
+
+            if mode == 'ALL':
+                has_permissions = all(permission in user_permissions for permission in permissions)
+            elif mode == 'ANY':
+                has_permissions = any(permission in user_permissions for permission in permissions)
+            else:
+                has_permissions = False
+
+            if not has_permissions:
+                raise InsufficientPermissionsException()
+
+            return user
+
+        return _permission_dependency
